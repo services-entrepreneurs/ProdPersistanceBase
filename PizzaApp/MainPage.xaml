@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:PizzaApp" 
+             x:Class="PizzaApp.MainPage">
+    
+    <NavigationPage.TitleView>
+        
+            <Grid>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="40" />
+                  </Grid.ColumnDefinitions>
+            
+                    <StackLayout HorizontalOptions="Center" 
+                                 Grid.Row = "0"
+                                 Grid.Column = "1"
+                                    Margin="{OnPlatform iOS='0,0,0,0', Android='0,0,0,0', Default=0}"
+                                    Orientation="Horizontal">
+                        
+                        <Image Source="pizza_logo.png" HeightRequest="40" />
+                        <Label Text="Pizzas" 
+                                FontAttributes="Bold"
+                                TextColor="White" VerticalOptions="Center" />
+                    </StackLayout>
+            
+                    <ImageButton 
+                                x:Name="sortButton"
+                                Clicked="SortButtonClicked"
+                                Source="sort_none.png"
+                                BackgroundColor="Transparent"
+                                Grid.Column="2" 
+                                 Grid.Row = "0" />
+            
+            </Grid>
+
+    
+    
+    </NavigationPage.TitleView>
+    
+    
+    <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+        
+        <ListView x:Name="listView" 
+                  IsPullToRefreshEnabled="true"
+                  RowHeight="100">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                              <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                              </Grid.RowDefinitions>
+                              <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="50" />
+                              </Grid.ColumnDefinitions>
+                            
+                                <Image 
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Source="{Binding pizza.imageUrl}"
+                                    Aspect="AspectFill"
+                                    Margin="10,15,5,15"
+                                    BackgroundColor="#F0F0F0"/>
+                            
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Vertical">
+                                    <Label Text="{Binding pizza.Titre}" TextColor="Black" FontSize="24"/>
+                                    <Label Text="{Binding pizza.IngerdientsStr}" 
+                                           TextColor="#555555"
+                                           MaxLines="2"
+                                           LineBreakMode="TailTruncation"
+                                           FontSize="16"/>
+                                
+                            </StackLayout>
+                            
+                            <StackLayout Orientation="Vertical"
+                                         VerticalOptions="Center"
+                                         HorizontalOptions="End"
+                                         Margin="0,0,10,0"
+                                         Grid.Row="0"
+                                         Grid.Column="2">
+                                
+                                <Label
+                                   VerticalOptions="Center"
+                                    HorizontalOptions="End"
+                                    HorizontalTextAlignment="End"
+                                    Text="{Binding pizza.PrixEuros}" TextColor="Black" FontSize="20"/>
+                                
+                                <ImageButton HorizontalOptions="End" 
+                                             BackgroundColor="Transparent" 
+                                             Source="{Binding ImageSourceFav}"
+                                             Command="{Binding FavClickCommand}"
+                                             WidthRequest="30"
+                                
+                                />
+                                
+                             </StackLayout>
+                            
+                            
+                            
+                            
+                            </Grid>
+                         </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        
+        <StackLayout x:Name="waitLayout"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Center">
+            <ActivityIndicator IsRunning="true"/>
+            
+        </StackLayout>
+       
+        
+     </Grid>
+    
+
+</ContentPage>
